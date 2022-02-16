@@ -1,4 +1,5 @@
 using MBrokerApp.Repository;
+using MBrokerApp.Repository.Managers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +25,8 @@ namespace MBrokerApp
         {
             string connectionString = Configuration.GetConnectionString("ConnectionString");
             services.AddDbContext<RepositoryContext>(options => { options.UseSqlServer(connectionString); });
+            services.AddTransient<IUserManager, UserManager>();
+
 
             services.AddControllersWithViews();
 
