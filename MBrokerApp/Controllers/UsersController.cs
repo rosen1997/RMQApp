@@ -14,12 +14,12 @@ namespace MBrokerApp.Controllers
     public class UsersController : Controller
     {
         private readonly IUserManager userManager;
-        //private readonly IUserSenderService userSenderService;
+        private readonly IUserSenderService userSenderService;
 
-        public UsersController(IUserManager userManager/*, IUserSenderService userSenderService*/)
+        public UsersController(IUserManager userManager, IUserSenderService userSenderService)
         {
             this.userManager = userManager;
-            //this.userSenderService = userSenderService;
+            this.userSenderService = userSenderService;
         }
 
         [HttpGet]

@@ -34,6 +34,8 @@ namespace MBrokerApp
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
             services.AddTransient<IUserSenderService, UserSenderService>();
 
+            services.AddHostedService<UserReceiverService>();
+
 
             services.AddControllersWithViews();
 
