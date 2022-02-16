@@ -1,5 +1,6 @@
 ﻿using MBrokerApp.Repository.Entities;
 using MBrokerApp.Repository.Managers;
+using MBrokerApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace MBrokerApp.Controllers
     public class UsersController : Controller
     {
         private readonly IUserManager userManager;
+        private readonly IUserSenderService userSenderService;
 
-        public UsersController(IUserManager userManager)
+        public UsersController(IUserManager userManager, IUserSenderService userSenderService)
         {
             this.userManager = userManager;
+            this.userSenderService = userSenderService;
         }
 
         [HttpGet]

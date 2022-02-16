@@ -1,5 +1,7 @@
+using MBrokerApp.Models;
 using MBrokerApp.Repository;
 using MBrokerApp.Repository.Managers;
+using MBrokerApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,11 @@ namespace MBrokerApp
             string connectionString = Configuration.GetConnectionString("ConnectionString");
             services.AddDbContext<RepositoryContext>(options => { options.UseSqlServer(connectionString); });
             services.AddTransient<IUserManager, UserManager>();
+
+            services.AddOptions();
+
+            services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
+            services.AddTransient<IUserSenderService, UserSenderService>();
 
 
             services.AddControllersWithViews();
