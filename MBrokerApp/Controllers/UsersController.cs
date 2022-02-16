@@ -33,6 +33,8 @@ namespace MBrokerApp.Controllers
         [Route("Create")]
         public IActionResult CreateUser([FromBody] User user)
         {
+            userSenderService.SendCustomer(user);
+
             return Ok();
         }
     }

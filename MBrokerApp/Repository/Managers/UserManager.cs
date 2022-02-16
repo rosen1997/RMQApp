@@ -18,6 +18,7 @@ namespace MBrokerApp.Repository.Managers
         public void CreateUser(User user)
         {
             repositoryContext.Users.Add(user);
+            repositoryContext.SaveChanges();
         }
 
         public IEnumerable<User> GetAllUsers()
