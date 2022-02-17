@@ -32,7 +32,10 @@ namespace MBrokerApp.Services
                     var json = JsonConvert.SerializeObject(user);
                     var body = Encoding.UTF8.GetBytes(json);
 
-                    channel.BasicPublish(exchange: "", routingKey: rabbitMqConfiguration.QueueName, basicProperties: null, body: body);
+                    var properties = channel.CreateBasicProperties();
+                    properties.Headers = new Dictionary<string, object>();
+                    properties.Headers.Add("numOfRetries", 0);
+                    channel.BasicPublish(exchange: "", routingKey: rabbitMqConfiguration.QueueName, basicProperties: properties, body: body);
                 }
             }
         }

@@ -14,5 +14,7 @@ namespace MBrokerApp.Models
         public string UserName { get; set; }
 
         public string Password { get; set; }
+
+        public int MaxRetries { get; set; }
     }
 }
