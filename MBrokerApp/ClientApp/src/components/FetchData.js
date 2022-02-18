@@ -1,59 +1,64 @@
 import React, { Component } from 'react';
 
 export class FetchData extends Component {
-  static displayName = FetchData.name;
+    static displayName = FetchData.name;
 
-  constructor(props) {
-    super(props);
-    this.state = { forecasts: [], loading: true };
-  }
+    constructor(props) {
+        super(props);
+        this.state = { users: []};
 
-  componentDidMount() {
-    this.populateWeatherData();
-  }
+        this.populateUsersData = this.populateUsersData.bind(this);
+    }
 
-  static renderForecastsTable(forecasts) {
-    return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
-  }
+    componentDidMount() {
+        this.populateUsersData();
+    }
 
-  render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+    static renderUsersTable(users) {
+        return (
+            <table className='table table-striped' aria-labelledby="tabelLabel">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>UCN</th>
+                        <th>Address</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Phone Number</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {users.map(user =>
+                        <tr key={user.id}>
+                            <td>{user.Name}</td>
+                            <td>{user.Ucn}</td>
+                            <td>{user.Address}</td>
+                            <td>{user.Country}</td>
+                            <td>{user.City}</td>
+                            <td>{user.PhoneNumber}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        );
+    }
 
-    return (
-      <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
-      </div>
-    );
-  }
+    render() {
+        let contents = FetchData.renderUsersTable(this.state.users);
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
-  }
+        return (
+            <div>
+                <h1 id="tabelLabel" >Users</h1>
+                {contents}
+                <input type="button" value="Refresh" onClick={this.populateUsersData} />
+            </div>
+        );
+    }
+
+    async populateUsersData() {
+        const response = await fetch('Users/GetAll');
+        const data = await response.json();
+        this.setState({ users: data });
+    }
 }

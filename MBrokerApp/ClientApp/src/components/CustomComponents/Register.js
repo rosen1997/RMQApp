@@ -5,9 +5,10 @@ export class Register extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { countries: [] };
+        this.state = { countries: [], gender: null };
         this.onSubmit = this.onSubmit.bind(this);
         this.populateCountries = this.populateCountries.bind(this);
+        this.onChangeGender = this.onChangeGender.bind(this);
     }
 
     componentDidMount() {
@@ -38,12 +39,14 @@ export class Register extends Component {
         });
     }
 
+    onChangeGender(event) {
+        this.setState({ gender: event.target.value });
+    }
+
     async populateCountries() {
         const response = await fetch('https://countriesnow.space/api/v0.1/countries');
         const data = await response.json();
         this.setState({ countries: data.data });
-
-        console.log(this.state.countries);
     }
 
     render() {
@@ -66,7 +69,10 @@ export class Register extends Component {
                         </label>
                         <label>
                             Gender:
-                            <input type="text" id="gender" />
+                            <div onChange={this.onChangeGender}>
+                                <input type="radio" value="true" name="gender" id="gender" /> Male
+                                <input type="radio" value="false" name="gender" id="gender" /> Female
+                            </div>
                         </label>
                         <label>
                             Phone Number:
