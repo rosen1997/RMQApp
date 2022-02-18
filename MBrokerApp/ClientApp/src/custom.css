@@ -12,3 +12,26 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.form-wrapper {
+    padding: 20px 0 20px 0;
+    max-width: 300px
+}
+
+.forms-lr label {
+    display: flex;
+    flex-direction: column;
+}
+
+    .forms-lr label input {
+        margin-top: 5px;
+        width: 100%;
+    }
+
+    .forms-lr label:last-of-type {
+        margin-bottom: 10px
+    }
+
+.submit-btn {
+    padding: 5px 25px 5px 25px;
+}
