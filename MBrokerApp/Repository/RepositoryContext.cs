@@ -18,6 +18,10 @@ namespace MBrokerApp.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .HasIndex(x => x.PhoneNumber).IsUnique();
+            modelBuilder.Entity<User>()
+                .HasIndex(x => x.Ucn).IsUnique();
             modelBuilder.Entity<User>().HasData(UsersSeed.Seed());
         }
     }
