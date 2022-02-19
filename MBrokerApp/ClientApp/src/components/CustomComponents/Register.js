@@ -5,27 +5,34 @@ export class Register extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { countries: [], cities: [], gender: null, country: null, city: null };
+        this.state = {
+            countries: [],
+            cities: [],
+            gender: null,
+            country: null, city: null
+        };
         this.onSubmit = this.onSubmit.bind(this);
         this.populateCountries = this.populateCountries.bind(this);
         this.onChangeGender = this.onChangeGender.bind(this);
         this.onChangeCountry = this.onChangeCountry.bind(this);
+        this.onChangeCity = this.onChangeCity.bind(this);
     }
 
     componentDidMount() {
         this.populateCountries();
     }
 
+
+
     onSubmit(e) {
         var name = document.getElementById('name').value;
         var lastName = document.getElementById('ucn').value;
         var address = document.getElementById('address').value;
         var phoneNumber = document.getElementById('pN').value;
-        var gender = document.getElementById('gender').value;
         var country = document.getElementById('country').value;
         var city = document.getElementById('city').value;
 
-        const user = { Name: name, Ucn: lastName, Address: address, PhoneNumber: phoneNumber, Gender: gender, Country: country, City: city };
+        const user = { Name: name, Ucn: lastName, Address: address, PhoneNumber: phoneNumber, Gender: this.state.gender, Country: country, City: city };
 
         e.preventDefault();
 
@@ -42,13 +49,21 @@ export class Register extends Component {
 
     onChangeGender(event) {
         this.setState({ gender: event.target.value });
+        console.log(this.state.gender, event.target.value);
     }
 
     onChangeCountry(event) {
-        console.log(event.target.value);
-        this.setState({ cities: event.target.value.cities, country: event.target.value.country });
-        console.log(this.state.country);
-        console.log(this.state.cities)
+        let obj = JSON.parse(event.target.value);
+        this.setState({
+            cities: obj.cities,
+            country: obj.country
+        });
+    }
+
+    onChangeCity(event) {
+        this.setState({
+            city: event.target.value,
+        });
     }
 
     async populateCountries() {
@@ -78,8 +93,8 @@ export class Register extends Component {
                         <label>
                             Gender:
                             <div onChange={this.onChangeGender}>
-                                <input type="radio" value="true" name="gender" id="gender" /> Male
-                                <input type="radio" value="false" name="gender" id="gender" /> Female
+                                <input type="radio" value={true} name="gender" id="gender" /> Male
+                                <input type="radio" value={false} name="gender" id="gender" /> Female
                             </div>
                         </label>
                         <label>
@@ -89,12 +104,14 @@ export class Register extends Component {
                         <label>
                             Country:
                             <select id="country" onChange={this.onChangeCountry}>
-                                {this.state.countries.map((country) => <option value={country}>{country.country}</option>)}
+                                <option>--Select Country--</option>
+                                {this.state.countries.map((country) => <option value={JSON.stringify(country)}>{country.country}</option>)}
                             </select>
                         </label>
                         <label>
                             City:
-                            <select id="city">
+                            <select id="city" onChange={this.onChangeCity}>
+                                <option>--Select City--</option>
                                 {this.state.cities.map((city) => <option value={city}>{city}</option>)}
                             </select>
                         </label>
