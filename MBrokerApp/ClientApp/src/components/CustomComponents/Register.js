@@ -29,13 +29,12 @@ export class Register extends Component {
         var lastName = document.getElementById('ucn').value;
         var address = document.getElementById('address').value;
         var phoneNumber = document.getElementById('pN').value;
-        var country = document.getElementById('country').value;
-        var city = document.getElementById('city').value;
+        var gender = (this.state.gender === 'true');
 
-        const user = { Name: name, Ucn: lastName, Address: address, PhoneNumber: phoneNumber, Gender: this.state.gender, Country: country, City: city };
+        const user = { Name: name, Ucn: lastName, Address: address, PhoneNumber: phoneNumber, Gender: gender, Country: this.state.country, City: this.state.city };
 
         e.preventDefault();
-
+        console.log(JSON.stringify(user));
         fetch('Users/Create', {
 
             method: 'POST',
@@ -49,7 +48,6 @@ export class Register extends Component {
 
     onChangeGender(event) {
         this.setState({ gender: event.target.value });
-        console.log(this.state.gender, event.target.value);
     }
 
     onChangeCountry(event) {

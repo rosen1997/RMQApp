@@ -95,7 +95,6 @@ namespace MBrokerApp.Services
             e.BasicProperties.Headers["numOfRetries"] = ++numOfRetries;
 
             channel.BasicPublish(exchange: "", routingKey: rabbitMqConfiguration.QueueName, basicProperties: e.BasicProperties, body: e.Body);
-            channel.BasicAck(e.DeliveryTag, false);
         }
 
         private void AddToErrorQueue(IBasicProperties properties, ReadOnlyMemory<byte> body)
