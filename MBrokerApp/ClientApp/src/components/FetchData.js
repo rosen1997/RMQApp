@@ -31,12 +31,13 @@ export class FetchData extends Component {
                 <tbody>
                     {users.map(user =>
                         <tr key={user.id}>
-                            <td>{user.Name}</td>
-                            <td>{user.Ucn}</td>
-                            <td>{user.Address}</td>
-                            <td>{user.Country}</td>
-                            <td>{user.City}</td>
-                            <td>{user.PhoneNumber}</td>
+                            <td>{user.name}</td>
+                            <td>{user.ucn}</td>
+                            <td>{user.address}</td>
+                            <td>{user.country}</td>
+                            <td>{user.city}</td>
+                            <td>{user.phoneNumber}</td>
+                            <td>{user.gender}</td>
                         </tr>
                     )}
                 </tbody>

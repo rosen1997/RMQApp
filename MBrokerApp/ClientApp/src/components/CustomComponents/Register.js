@@ -5,10 +5,11 @@ export class Register extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { countries: [], gender: null };
+        this.state = { countries: [], cities: [], gender: null, country: null, city: null };
         this.onSubmit = this.onSubmit.bind(this);
         this.populateCountries = this.populateCountries.bind(this);
         this.onChangeGender = this.onChangeGender.bind(this);
+        this.onChangeCountry = this.onChangeCountry.bind(this);
     }
 
     componentDidMount() {
@@ -41,6 +42,13 @@ export class Register extends Component {
 
     onChangeGender(event) {
         this.setState({ gender: event.target.value });
+    }
+
+    onChangeCountry(event) {
+        console.log(event.target.value);
+        this.setState({ cities: event.target.value.cities, country: event.target.value.country });
+        console.log(this.state.country);
+        console.log(this.state.cities)
     }
 
     async populateCountries() {
@@ -80,13 +88,14 @@ export class Register extends Component {
                         </label>
                         <label>
                             Country:
-                            <select id="country">
+                            <select id="country" onChange={this.onChangeCountry}>
                                 {this.state.countries.map((country) => <option value={country}>{country.country}</option>)}
                             </select>
                         </label>
                         <label>
                             City:
                             <select id="city">
+                                {this.state.cities.map((city) => <option value={city}>{city}</option>)}
                             </select>
                         </label>
                         <input className="submit-btn" type="submit" value="Sing Up" />
